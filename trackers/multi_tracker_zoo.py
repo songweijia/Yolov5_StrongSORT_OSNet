@@ -2,13 +2,14 @@ from trackers.strong_sort.utils.parser import get_config
 from trackers.strong_sort.strong_sort import StrongSORT
 from trackers.ocsort.ocsort import OCSort
 from trackers.bytetrack.byte_tracker import BYTETracker
-
+from pathlib import Path
 
 def create_tracker(tracker_type, appearance_descriptor_weights, device, half):
     if tracker_type == 'strongsort':
         # initialize StrongSORT
         cfg = get_config()
-        cfg.merge_from_file('trackers/strong_sort/configs/strong_sort.yaml')
+        curr_path = Path(__file__).resolve().parents[0]
+        cfg.merge_from_file(curr_path / 'strong_sort/configs/strong_sort.yaml')
 
         strongsort = StrongSORT(
             appearance_descriptor_weights,
